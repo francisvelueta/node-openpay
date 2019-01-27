@@ -16,7 +16,7 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/">Registrarse <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
@@ -31,8 +31,12 @@
 
   </div>
 </nav>
-<% if(signinMessage) { %>
-  <div> <%= signinMessage %></div>
+
+<% if(signinMessage.length > 0) { %>
+  <div class="alert alert-danger" role="alert">
+  <%= signinMessage %>
+</div>
+
   <% } %>
     <%- body %>
     </div>
