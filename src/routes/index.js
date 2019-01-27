@@ -25,7 +25,7 @@ res.render('signin');
 });
 
 router.post('/signin', passport.authenticate('local-sigin', {
-  successRedirect: '/welcome',
+  successRedirect: '/dashboard',
   failureRedirect: '/signin',
   passReqToCallback: true
 }));
@@ -36,8 +36,16 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/signin');
 });
 
-router.get('/welcome', isAuthenticated, (req, res, next) => {
+
+router.get('/welcome', (req, res, next) => {
+
   res.render('welcome');
+});
+router.get('/dashboard', isAuthenticated, (req, res, next) => {
+  openpay.customers.list(function(error, list) {
+  console.log(list);
+});
+  res.render('dashboard');
 });
 
 function isAuthenticated(req, res, next) {
