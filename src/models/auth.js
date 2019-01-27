@@ -2,18 +2,25 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./user')
 
-passport.serializeUser((user, done)=> {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(async (user, done)=> {
-  const userIn = await User.findById(id);
-  done(null, userIn);
+passport.deserializeUser(async (id, done)=> {
+  const user = await User.findById(id);
+  done(null, user);
 });
 
 
 passport.use('local-sigin', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
-  passReqToCall: true
-}, (req, email, password, done)=> {}))
+  passReqToCallback: true
+}, async (req, email, password, done)=> {
+  const user = await User.findOne({ email: email, password: password });
+  if(!user) {
+    return done(null, false, req.flash('signinMessage', 'Datos Incorrectos'));
+  }
+
+  done(null, user);
+}));

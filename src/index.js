@@ -4,6 +4,7 @@ const path = require('path');
 const morgan = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 const app = express();
 require('./database');
@@ -15,16 +16,21 @@ app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3000);
 // middlewares
-app.use(express.urlencoded({extended: false}));
 app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));
 app.use(session({
     secret: 'mysecretsession',
     resave: false,
     saveUninitialized: false
-}))
+}));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next)=> {
+  app.locals.signinMessage = req.flash('signinMessage');
+  next();
+})
 // Routes
 app.use(require('./routes/index'));
 

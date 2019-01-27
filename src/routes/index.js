@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Openpay = require('openpay');
-
+const passport = require('passport');
 const openpay = new Openpay('muok4aq3ozexd874ii7e', 'sk_a2be3788adeb4b6ea387e74bf6d16976');
 
 router.get('/', (req, res, next) => {
@@ -24,9 +24,28 @@ router.get('/signin', (req, res, next) => {
 res.render('signin');
 });
 
-router.post('/signin', (req, res, next) => {
-res.render('dashboard');
+router.post('/signin', passport.authenticate('local-sigin', {
+  successRedirect: '/welcome',
+  failureRedirect: '/signin',
+  passReqToCallback: true
+}));
+
+
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  res.redirect('/signin');
 });
+
+router.get('/welcome', isAuthenticated, (req, res, next) => {
+  res.render('welcome');
+});
+
+function isAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/signin');
+}
 
 
 module.exports = router;
