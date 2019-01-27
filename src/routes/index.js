@@ -36,16 +36,16 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/signin');
 });
 
-
 router.get('/welcome', (req, res, next) => {
 
   res.render('welcome');
 });
-router.get('/dashboard', isAuthenticated, (req, res, next) => {
-  openpay.customers.list(function(error, list) {
-  console.log(list);
+router.get('/dashboard', isAuthenticated,   (req, res, next) => {
+   openpay.customers.list((error, list) => {
+    res.render('dashboard',  {datas: list});
 });
-  res.render('dashboard');
+
+
 });
 
 function isAuthenticated(req, res, next) {

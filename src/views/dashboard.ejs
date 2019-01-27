@@ -1,3 +1,29 @@
 <%- layout('layouts/main.ejs') %>
 
+<div>
 <h1>Dashboard - Clientes</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Email</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">status</th>
+    </tr>
+  </thead>
+  <% if (datas) {
+  for(i=0; i< datas.length; i++) {
+     %>
+  <tr>
+        <th scope="row"><%= datas[i].name %> <%= datas[i].last_name %></th>
+        <td><%= datas[i].email %></td>
+        <td><%= datas[i].phone_number %></td>
+        <td><%= datas[i].status %></td>
+      </tr>
+
+      <% } } %>
+  </table>
+
+
+</div>
