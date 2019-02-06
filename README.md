@@ -3,7 +3,11 @@
 ----
 ## ¿Qué es Node Openpay?
 
-![NodeOpenpay](https://github.com/francisvelueta/node-openpay/blob/master/src/assets/prototype.png)
+![CloseMap](https://github.com/francisvelueta/node-openpay/blob/master/src/assets/prototype.png)
+
+
+
+> Empezó como un reto técnico, pero al ver el potencial del ejercicio decidí agregarle funcionalidades, esta web page ocupa una api para transferencias bancarias atraves de una subscripción como cliente, un administrador puede ver la lista completa de los usuarios que se registran a tu cuenta Openpay.
 
 
 
